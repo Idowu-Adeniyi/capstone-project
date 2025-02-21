@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@400;600&display=swap");
+
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #f9f9f9;
+  color: #202020;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Oswald", sans-serif;
+  color: #215fa2;
+}
+
+button {
+  background-color: #ff7200;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header {
+  background-color: #4b4a4a;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
