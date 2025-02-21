@@ -1,15 +1,17 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createWorkLog,
   getUserWorkLogs,
   getAllWorkLogs,
-} = require("../controllers/workLogController");
-const authMiddleware = require("../middlewares/authMiddleware");
-const roleMiddleware = require("../middlewares/roleMiddleware");
+  getWorkHoursReport,
+} from "../controllers/workLogController.js";
+import { protect, authorize } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
-router.post("/", authMiddleware, createWorkLog);
-router.get("/user", authMiddleware, getUserWorkLogs);
-router.get("/all", authMiddleware, roleMiddleware(["admin"]), getAllWorkLogs);
 
-module.exports = router;
+router.post("/", protect, createWorkLog);
+router.get("/", protect, getUserWorkLogs);
+router.get("/all", protect, authorize(["admin"]), getAllWorkLogs);
+router.get("/report", protect, authorize(["admin"]), getWorkHoursReport);
+
+export default router;
