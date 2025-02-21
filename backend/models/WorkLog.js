@@ -1,10 +1,13 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const workLogSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  date: { type: Date, default: Date.now },
-  hoursWorked: { type: Number, required: true },
-  description: { type: String, required: true },
-});
+const workLogSchema = new mongoose.Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    date: { type: Date, required: true },
+    hours: { type: Number, required: true },
+    description: { type: String, required: true },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("WorkLog", workLogSchema);
+export default mongoose.model("WorkLog", workLogSchema);
