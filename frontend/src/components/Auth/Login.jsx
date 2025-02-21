@@ -1,41 +1,43 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Login() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/auth/login", { email, password });
-      alert(`Welcome, ${res.data.user.firstName}`);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        form
+      );
+      localStorage.setItem("token", data.token);
+      navigate("/user-dashboard");
     } catch (err) {
       alert("Invalid credentials");
     }
   };
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
+    <div className="form-container">
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           required
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
         <input
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           required
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
         <button type="submit">Login</button>
       </form>
     </div>
   );
-};
-
-export default Login;
+}
