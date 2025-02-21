@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
+
 const workLogSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   date: { type: Date, default: Date.now },
-  clockInTime: Date,
-  clockOutTime: Date,
-  totalHours: Number,
-  note: String,
+  hoursWorked: { type: Number, required: true },
+  description: { type: String, required: true },
 });
+
 module.exports = mongoose.model("WorkLog", workLogSchema);
